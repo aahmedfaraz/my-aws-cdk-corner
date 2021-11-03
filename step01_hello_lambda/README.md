@@ -1,7 +1,7 @@
 # Outputs:
 
-- Step01HelloLambdaStack.myaboutapiEndpoint406CBE06 = [https://34w569y12i.execute-api.us-west-2.amazonaws.com/prod/](https://34w569y12i.execute-api.us-west-2.amazonaws.com/prod/), use with `/hello`
-- Step01HelloLambdaStack.myluckyapiEndpoint36D477C3 = [https://1jqfhc18p6.execute-api.us-west-2.amazonaws.com/prod/](https://1jqfhc18p6.execute-api.us-west-2.amazonaws.com/prod/), use with `/about`
+- Step01HelloLambdaStack.myluckyapiEndpoint36D477C3 = [https://1jqfhc18p6.execute-api.us-west-2.amazonaws.com/prod/](https://1jqfhc18p6.execute-api.us-west-2.amazonaws.com/prod/), use with `/hello`
+- Step01HelloLambdaStack.myaboutapiEndpoint406CBE06 = [https://34w569y12i.execute-api.us-west-2.amazonaws.com/prod/](https://34w569y12i.execute-api.us-west-2.amazonaws.com/prod/), use with `/about`
 
 # My Steps
 
