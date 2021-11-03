@@ -144,7 +144,3 @@ cdk deploy
 - `cdk synth` emits the synthesized CloudFormation template
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-```
-
-```
