@@ -1,8 +1,20 @@
 # All the Learned CDK Modules
 
-0. [@aws-cdk/aws-s3](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-readme.html)
-1. [@aws-cdk/aws-s3](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-readme.html) [@aws-cdk/aws-apigateway](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-apigateway-readme.html)
-2. [@aws-cdk/aws-s3](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-readme.html) [@aws-cdk/aws-s3-deployment](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html) [@aws-cdk/aws-cloudfront](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-cloudfront-readme.html) [@aws-cdk/aws-cloudfront-origins](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-cloudfront-origins-readme.html)
+### Step00_hello_cdk
+
+- [@aws-cdk/aws-s3](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-readme.html)
+
+### Step01_hello_lambda
+
+- [@aws-cdk/aws-s3](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-readme.html)
+- [@aws-cdk/aws-apigateway](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-apigateway-readme.html)
+
+### Step02_hello_website
+
+- [@aws-cdk/aws-s3](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-readme.html)
+- [@aws-cdk/aws-s3-deployment](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html)
+- [@aws-cdk/aws-cloudfront](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-cloudfront-readme.html)
+- [@aws-cdk/aws-cloudfront-origins](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-cloudfront-origins-readme.html)
 
 # About CDK TypeScript project!
 
