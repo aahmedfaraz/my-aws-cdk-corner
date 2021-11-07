@@ -2,6 +2,10 @@
 
 Step02HelloWebsiteStack.AhmedFarazWebsite = [https://dwma16jmb893y.cloudfront.net/](https://dwma16jmb893y.cloudfront.net/)
 
+#### Site ScreenShot
+
+<img src="./assets/website.png" alt="My Site">
+
 # Used Libraries
 
 - [@aws-cdk/aws-s3](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-readme.html)
