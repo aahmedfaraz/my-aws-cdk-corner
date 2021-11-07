@@ -1,6 +1,6 @@
 # Live Site
 
-Step02HelloWebsiteStack.AhmedFarazWebsite = [https://dwma16jmb893y.cloudfront.net/](https://dwma16jmb893y.cloudfront.net/)
+Step02HelloWebsiteStack.AhmedFarazWebsite = [https://dwma16jmb893y.cloudfront.net/](https://dwma16jmb893y.cloudfront.net/) (will not availabla anymore, cuz destroyed the cdk, but pasted ScreenShot below)
 
 #### Site ScreenShot
 
