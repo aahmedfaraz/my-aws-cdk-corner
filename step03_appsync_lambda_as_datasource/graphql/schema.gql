@@ -1,0 +1,4 @@
+type Query {
+  welcome: String
+  developer: String
+}
