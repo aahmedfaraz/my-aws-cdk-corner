@@ -4,7 +4,7 @@ Step02HelloWebsiteStack.AhmedFarazWebsite = [https://dwma16jmb893y.cloudfront.ne
 
 #### Site ScreenShot
 
-<img src="./assets/website.png" alt="My Site">
+<img src="https://github.com/aahmedfaraz/my-aws-cdk-corner/blob/main/step02_hello_website/assets/website.PNG" alt="My Website on AWS Cloud using AWS-CDK-CloudFront">
 
 # Used Libraries
 
