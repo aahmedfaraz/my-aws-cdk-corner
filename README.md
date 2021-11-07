@@ -16,6 +16,11 @@
 - [@aws-cdk/aws-cloudfront](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-cloudfront-readme.html)
 - [@aws-cdk/aws-cloudfront-origins](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-cloudfront-origins-readme.html)
 
+### Step03_appsync_lambda_as_datasource
+
+- [@aws-cdk/aws-appsync](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-appsync-readme.html)
+- [@aws-cdk/aws-lambda](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html)
+
 # About CDK TypeScript project!
 
 This is a blank project for TypeScript development with CDK.
