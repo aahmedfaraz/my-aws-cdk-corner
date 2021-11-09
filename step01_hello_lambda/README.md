@@ -124,7 +124,7 @@ item.addMethod('GET');   // GET /items/{item}
 item.addMethod('DELETE', new apigateway.HttpIntegration('http://amazon.com'));
 ```
 
-12. 9. Deploy, Now it will deploy lambda function with API Gateway so we can integrate with Client side, use same commands,
+12. Deploy, Now it will deploy lambda function with API Gateway so we can integrate with Client side, use same commands,
 
 ```powershell
 # Build
