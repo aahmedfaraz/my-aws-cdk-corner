@@ -15,4 +15,7 @@ type Product {
 
 type Mutation {
   addProduct(product: ProductInput): Product
+  getProducts(): [Product]
+  updateProduct(product: ProductInput): Product
+  deleteProduct(productID: String)
 }
