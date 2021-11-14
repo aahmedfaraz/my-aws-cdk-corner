@@ -27,6 +27,14 @@
 - [@aws-cdk/aws-lambda](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html)
 - [@aws-cdk/aws-dynamodb](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-dynamodb-readme.html)
 
+### step05_appsync_gatsby_client
+
+- [@aws-cdk/aws-appsync](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-appsync-readme.html)
+- [@aws-cdk/aws-lambda](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html)
+- [@aws-cdk/aws-dynamodb](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-dynamodb-readme.html)
+
+with `Gatsby` and `@apollo/client`
+
 # About CDK TypeScript project!
 
 This is a blank project for TypeScript development with CDK.
