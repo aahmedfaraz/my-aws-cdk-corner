@@ -1,0 +1,176 @@
+/* Styling */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgb(243, 243, 243);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  color: rgb(65, 65, 65);
+}
+
+.nav-heading {
+  padding: 10px;
+  text-align: center;
+  background-color: rgb(92, 92, 92);
+  color: white;
+  border-bottom: 5px solid rgb(41, 41, 41);
+  font-weight: unset;
+}
+
+h1 small {
+  font-size: 15px;
+  padding: 5px 10px;
+  background-color: rgb(54, 54, 54);
+  border-radius: 5px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 400px;
+  max-width: 100%;
+  padding: 20px 10px;
+  text-align: center;
+}
+
+main > button {
+  cursor: pointer;
+  background: linear-gradient(to bottom, dodgerblue, blue);
+  color: white;
+  padding: 5px 20px;
+  border: 0;
+  border-radius: 5px;
+}
+
+main > p {
+  padding: 5px;
+}
+
+.welcome {
+  color: dodgerblue;
+  border-bottom: 1px solid dodgerblue;
+  margin-bottom: 5px;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.products {
+  width: 100%;
+}
+
+.products small {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.products small span {
+  flex: 1;
+  text-align: center;
+  color: gray;
+}
+
+.products h1 {
+  padding: 5px;
+}
+
+.products ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.products ul li {
+  cursor: pointer;
+  width: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(226, 226, 226);
+  padding: 10px;
+  margin: 5px;
+}
+
+.products ul li:hover {
+  background-color: rgb(206, 206, 206);
+}
+
+.products ul li span {
+  flex: 1;
+  text-align: center;
+}
+
+.products ul li .data {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.products ul li .controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.products ul li .controls .update {
+  cursor: pointer;
+  background: linear-gradient(to bottom, limegreen, green);
+  color: white;
+  padding: 3px 10px;
+  border: 0;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+.products ul li .controls .delete {
+  cursor: pointer;
+  background: linear-gradient(to bottom, tomato, red);
+  color: white;
+  padding: 3px 10px;
+  border: 0;
+  border-radius: 5px;
+}
+
+form {
+  border: 2px dashed rgb(179, 179, 179);
+  padding: 5px;
+  margin-top: 5px;
+}
+
+form h4 {
+  padding: 5px;
+}
+
+form .inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form .inputs input {
+  padding: 2px;
+}
+
+form .inputs input:last-child {
+  margin-left: 5px;
+}
+
+form input[type="submit"] {
+  cursor: pointer;
+  width: 100%;
+  background: linear-gradient(to bottom, orange, orangered);
+  color: white;
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 5px;
+  margin-top: 5px;
+}
