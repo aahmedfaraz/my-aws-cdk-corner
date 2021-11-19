@@ -42,6 +42,13 @@ with `Gatsby` and `@apollo/client`
 
 with `Gatsby` and `aws-amplify`
 
+### step07_appsync_with_subscriptions_using_amplify
+
+- Appsync `Subscriptions` CDK on Backend ([@aws-cdk/aws-appsync](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-appsync-readme.html))
+- Amplify on Frontend ([Amplify Framework Documentation](https://docs.amplify.aws/))
+
+with `Gatsby` and `aws-amplify`
+
 # About CDK TypeScript project!
 
 This is a blank project for TypeScript development with CDK.
