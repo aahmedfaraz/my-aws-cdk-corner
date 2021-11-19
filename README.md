@@ -1,33 +1,33 @@
 # All My Learned AWS-CDK Modules
 
-#### Step00_hello_cdk
+#### 0. Step00_hello_cdk
 
 - [@aws-cdk/aws-s3](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-readme.html)
 
-#### Step01_hello_lambda
+#### 1. Step01_hello_lambda
 
 - [@aws-cdk/aws-s3](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-readme.html)
 - [@aws-cdk/aws-apigateway](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-apigateway-readme.html)
 
-#### Step02_hello_website
+#### 2. Step02_hello_website
 
 - [@aws-cdk/aws-s3](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-readme.html)
 - [@aws-cdk/aws-s3-deployment](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html)
 - [@aws-cdk/aws-cloudfront](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-cloudfront-readme.html)
 - [@aws-cdk/aws-cloudfront-origins](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-cloudfront-origins-readme.html)
 
-### Step03_appsync_lambda_as_datasource
+#### 3. Step03_appsync_lambda_as_datasource
 
 - [@aws-cdk/aws-appsync](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-appsync-readme.html)
 - [@aws-cdk/aws-lambda](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html)
 
-### Step04_appsync_lambda_dynamodb
+#### 4. Step04_appsync_lambda_dynamodb
 
 - [@aws-cdk/aws-appsync](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-appsync-readme.html)
 - [@aws-cdk/aws-lambda](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html)
 - [@aws-cdk/aws-dynamodb](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-dynamodb-readme.html)
 
-### step05_appsync_gatsby_client
+#### 5. step05_appsync_gatsby_client
 
 - [@aws-cdk/aws-appsync](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-appsync-readme.html)
 - [@aws-cdk/aws-lambda](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html)
@@ -35,14 +35,14 @@
 
 with `Gatsby` and `@apollo/client`
 
-### step06_appsync_frontend_amplify
+#### 6. step06_appsync_frontend_amplify
 
 - Appsync CDK on Backend ([@aws-cdk/aws-appsync](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-appsync-readme.html))
 - Amplify on Frontend ([Amplify Framework Documentation](https://docs.amplify.aws/))
 
 with `Gatsby` and `aws-amplify`
 
-### step07_appsync_with_subscriptions_using_amplify
+#### 7. step07_appsync_with_subscriptions_using_amplify
 
 - Appsync `Subscriptions` CDK on Backend ([@aws-cdk/aws-appsync](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-appsync-readme.html))
 - Amplify on Frontend ([Amplify Framework Documentation](https://docs.amplify.aws/))
