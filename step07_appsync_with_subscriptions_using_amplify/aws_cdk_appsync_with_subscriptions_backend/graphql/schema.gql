@@ -1,0 +1,33 @@
+type Query {
+  welcome: String
+  products: [Product]
+}
+
+type Product {
+  id: String
+  title: String
+  price: Int
+}
+
+input AddProductInput {
+  title: String
+  price: Int
+}
+
+input UpdateProductInput {
+  id: String
+  title: String
+  price: Int
+}
+
+type Mutation {
+  addProduct(product: AddProductInput): Product
+  updateProduct(product: UpdateProductInput): Product
+  deleteProduct(productID: String): String
+}
+
+type Subscription {
+  onAddProduct: Product @aws_subscribe(mutations: ["addProduct"])
+  onUpdateProduct: Product @aws_subscribe(mutations: ["updateProduct"])
+  onDeleteProduct: String @aws_subscribe(mutations: ["deleteProduct"])
+}
