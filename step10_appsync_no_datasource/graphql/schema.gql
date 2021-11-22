@@ -1,0 +1,11 @@
+type Response {
+  status: String!
+}
+
+type Query {
+  readStatus: Response!
+}
+
+type Mutation {
+  changeStatus(status: String!): Response!
+}
