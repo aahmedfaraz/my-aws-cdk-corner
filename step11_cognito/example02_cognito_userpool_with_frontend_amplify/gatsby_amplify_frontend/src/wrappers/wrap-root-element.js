@@ -1,21 +1,20 @@
 import React from 'react';
 import Amplify, { Auth } from 'aws-amplify';
-import awsconfig from '../aws-exports';
+import awsmobile from '../aws-exports';
 import { AmplifyProvider } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-const wrapRootElement = ({ elements }) => {
+const wrapRootElement = ({ element }) => {
 
-    Amplify.configure(awsconfig);
+    Amplify.configure(awsmobile);
 
     // You can get the current config object
     const currentConfig = Auth.configure();
-
     console.log('currentConfig', currentConfig);
 
     return (
         <AmplifyProvider>
-            { elements }
+            { element }
         </AmplifyProvider>
     )
 }
