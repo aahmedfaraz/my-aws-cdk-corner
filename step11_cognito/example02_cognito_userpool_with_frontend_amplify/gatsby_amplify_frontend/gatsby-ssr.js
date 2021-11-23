@@ -1,0 +1,1 @@
+export { default as wrapRootElements } from './src/wrappers/wrap-root-elements';
