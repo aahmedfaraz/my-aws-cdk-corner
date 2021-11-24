@@ -1,3 +1,41 @@
+# Step by Step Screenshots of working app
+
+# Userpool Before
+
+<img src="https://github.com/aahmedfaraz/my-aws-cdk-corner/blob/main/step11_cognito/example02_cognito_userpool_with_frontend_amplify/assets/1_userpool_before.PNG" alt="image">
+
+# Created User
+
+<img src="https://github.com/aahmedfaraz/my-aws-cdk-corner/blob/main/step11_cognito/example02_cognito_userpool_with_frontend_amplify/assets/2_created_user.PNG" alt="image">
+
+# Asking Verification Code
+
+<img src="https://github.com/aahmedfaraz/my-aws-cdk-corner/blob/main/step11_cognito/example02_cognito_userpool_with_frontend_amplify/assets/3_asking_verification_code.PNG" alt="image">
+
+# Recieved verification code via Email
+
+<img src="https://github.com/aahmedfaraz/my-aws-cdk-corner/blob/main/step11_cognito/example02_cognito_userpool_with_frontend_amplify/assets/4_recieved_verification_code_email.PNG" alt="image">
+
+# Entered verification code
+
+<img src="https://github.com/aahmedfaraz/my-aws-cdk-corner/blob/main/step11_cognito/example02_cognito_userpool_with_frontend_amplify/assets/5_entered_verification_code.PNG" alt="image">
+
+# Successfully Signed In
+
+<img src="https://github.com/aahmedfaraz/my-aws-cdk-corner/blob/main/step11_cognito/example02_cognito_userpool_with_frontend_amplify/assets/0_SignedIn.PNG" alt="image">
+
+# When Signing In using SignIn Form
+
+<img src="https://github.com/aahmedfaraz/my-aws-cdk-corner/blob/main/step11_cognito/example02_cognito_userpool_with_frontend_amplify/assets/6_Signing_In.PNG" alt="image">
+
+# Successfully Signed In
+
+<img src="https://github.com/aahmedfaraz/my-aws-cdk-corner/blob/main/step11_cognito/example02_cognito_userpool_with_frontend_amplify/assets/0_SignedIn.PNG" alt="image">
+
+# Userpool After
+
+<img src="https://github.com/aahmedfaraz/my-aws-cdk-corner/blob/main/step11_cognito/example02_cognito_userpool_with_frontend_amplify/assets/7_userpool_after.PNG" alt="image">
+
 # How to use Amplify after Installation (Step by Step)
 
 Now amplify is updated, this documents is according to updated version
