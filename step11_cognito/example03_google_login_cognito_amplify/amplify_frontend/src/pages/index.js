@@ -9,7 +9,7 @@ const Home = () => {
         console.log(user);
         return (
           <main>
-            <h1>Hello {user.attributes.given_name || user.attributes.email}</h1>
+            <h1>Hello {user.username}</h1>
             <button onClick={signOut}>Sign out</button>
           </main>
         )

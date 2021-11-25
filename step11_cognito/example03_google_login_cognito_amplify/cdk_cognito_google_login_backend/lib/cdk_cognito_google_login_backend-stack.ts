@@ -11,7 +11,7 @@ export class CdkCognitoGoogleLoginBackendStack extends cdk.Stack {
     // Create userpool
     const userpool = new cognito.UserPool(this, 'myuserpool', {
       // 
-      // SIGN UP using : *givenName, *email, *phone, *password. ( * means required )
+      // SIGN UP using : *givenName, *email, *password. ( * means required )
       // SIGN IN using : email, password
       // VERIFYING     : email
       // 
@@ -46,10 +46,6 @@ export class CdkCognitoGoogleLoginBackendStack extends cdk.Stack {
         email: {
           required: true,
           mutable: false
-        },
-        phoneNumber: {
-          required: true,
-          mutable: true
         }
       },
       // customAttributes: {
@@ -81,8 +77,7 @@ export class CdkCognitoGoogleLoginBackendStack extends cdk.Stack {
       clientSecret: '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', // MY_GOOGLE_OAUTH_CLIENT_SECRET
       attributeMapping: {
         givenName: cognito.ProviderAttribute.GOOGLE_GIVEN_NAME,
-        email: cognito.ProviderAttribute.GOOGLE_EMAIL,
-        phoneNumber: cognito.ProviderAttribute.GOOGLE_PHONE_NUMBERS,
+        email: cognito.ProviderAttribute.GOOGLE_EMAIL
       },
       scopes: ['profile', 'email', 'openid']
     })
@@ -119,6 +114,5 @@ export class CdkCognitoGoogleLoginBackendStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'domain', {
       value: domain.domainName
     })
-  
   }
 }
