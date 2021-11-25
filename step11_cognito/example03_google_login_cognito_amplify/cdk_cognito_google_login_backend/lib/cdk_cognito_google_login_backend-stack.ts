@@ -11,11 +11,11 @@ export class CdkCognitoGoogleLoginBackendStack extends cdk.Stack {
     // Create userpool
     const userpool = new cognito.UserPool(this, 'myuserpool', {
       // 
-      // SIGN UP using : *fullname, *email, *phone, *password. ( * means required )
+      // SIGN UP using : *givenName, *email, *phone, *password. ( * means required )
       // SIGN IN using : email, password
-      // VERIFYING     : email, phone
+      // VERIFYING     : email
       // 
-      userPoolName: 'userpool-for-google-and-facebook-login',
+      userPoolName: 'userpool-for-google-login',
       selfSignUpEnabled: true,
       userVerification: {
         // When a user signs up, email and SMS messages are used to verify their account and contact methods
@@ -36,13 +36,12 @@ export class CdkCognitoGoogleLoginBackendStack extends cdk.Stack {
       },
       autoVerify: {
         email: true,
-        phone: true
       },
       standardAttributes: {
         // defined attributes wanted for signup else custom attributes down below
-        fullname: {
+        givenName : {
           required: true,
-          mutable: false
+          mutable: false,
         },
         email: {
           required: true,
@@ -78,10 +77,10 @@ export class CdkCognitoGoogleLoginBackendStack extends cdk.Stack {
     // Create provider
     const myGoogleProvider = new cognito.UserPoolIdentityProviderGoogle(this, 'myGoogleProvider', {
       userPool: userpool,
-      clientId: '916101340968-n98gtsllo99hf62klutkdktd1r9judp8.apps.googleusercontent.com', // MY_GOOGLE_OAUTH_CLIENT_ID
-      clientSecret: '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', // MY_GOOGLE_OAUTH_CLIENT_SECRET
+      clientId: '264130709684-oerf255qr8jv49h7jb6n4cgujs29ldok.apps.googleusercontent.com', // MY_GOOGLE_OAUTH_CLIENT_ID
+      clientSecret: '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', // MY_GOOGLE_OAUTH_CLIENT_SECRET
       attributeMapping: {
-        fullname: cognito.ProviderAttribute.GOOGLE_GIVEN_NAME,
+        givenName: cognito.ProviderAttribute.GOOGLE_GIVEN_NAME,
         email: cognito.ProviderAttribute.GOOGLE_EMAIL,
         phoneNumber: cognito.ProviderAttribute.GOOGLE_PHONE_NUMBERS,
       },
@@ -95,14 +94,15 @@ export class CdkCognitoGoogleLoginBackendStack extends cdk.Stack {
     const userpoolClient = new cognito.UserPoolClient(this, 'myClientForUserpoolWithGoogleProvider', {
       userPool: userpool,
       oAuth: {
-        callbackUrls: ['http://localhost:8000'] // This is the link where user will be redirected to with the code upon signin
+        callbackUrls: ["http://localhost:8000/"], // This is what user is allowed to be redirected to with the code upon signin. this can be a list of urls.
+        logoutUrls: ["http://localhost:8000/"], // This is what user is allowed to be redirected to after signout. this can be a list of urls.
       }
     })
 
     // Define Domain when third party authentication
     const domain = userpool.addDomain('theDomain', {
       cognitoDomain: {
-        domainPrefix: 'ahmed-faraz-cog-app'
+        domainPrefix: 'ahmed-faraz-cog-app', // SET YOUR OWN Domain PREFIX HERE
       }
     })
 
