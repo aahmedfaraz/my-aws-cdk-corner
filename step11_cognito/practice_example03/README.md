@@ -16,7 +16,7 @@
 
 # After Sign In with Google
 
-<img src=https://github.com/aahmedfaraz/my-aws-cdk-corner/blob/main/step11_cognito/practice_example03/assets/GoogleUser.PNG" alt="img">
+<img src="https://github.com/aahmedfaraz/my-aws-cdk-corner/blob/main/step11_cognito/practice_example03/assets/GoogleUser.PNG" alt="img">
 
 # After Sign In with Normal User
 
