@@ -1,5 +1,20 @@
-import React from "react"
+import React from 'react'
+import config from '../config';
 
-export default function Home() {
-  return <div>Hello world!</div>
+const Home = ({ location }) => {
+
+  console.log(location);
+
+  const { domainUrl, clientId, loginRedirectUri } = config;
+
+  return (
+    <div>
+      Welcome to the app
+      <button onClick={() => {
+          window.location.href = `${domainUrl}/login?client_id=${clientId}&response_type=code&scope=email+openid&redirect_uri=${loginRedirectUri}`
+        }}>Login or Sign Up</button>
+    </div>
+  )
 }
+
+export default Home;
