@@ -1,0 +1,14 @@
+type Query {
+  welcome: String
+  getData: [Data]
+}
+
+type Data {
+  id: String
+  title: String
+}
+
+type Mutation {
+  addData(title: String): Data
+  deleteData(id: String): Data
+}
