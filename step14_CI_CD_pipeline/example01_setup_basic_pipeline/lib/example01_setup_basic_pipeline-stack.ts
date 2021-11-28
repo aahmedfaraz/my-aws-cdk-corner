@@ -66,7 +66,7 @@ export class Example01SetupBasicPipelineStack extends cdk.Stack {
           actionName: 'Checkout',
           owner: 'aahmedfaraz',
           repo: 'demo_cdk_backend',
-          oauthToken: cdk.SecretValue.plainText('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'),
+          oauthToken: cdk.SecretValue.plainText('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'),
           output: sourceCodeOutput,
           branch: 'main'
         })
