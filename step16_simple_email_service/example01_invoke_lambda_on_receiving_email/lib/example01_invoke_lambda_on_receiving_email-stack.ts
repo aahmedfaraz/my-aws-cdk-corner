@@ -26,7 +26,7 @@ export class Example01InvokeLambdaOnReceivingEmailStack extends Stack {
     
     // Adding a rule inside the rule set
     ruleSet.addRule('RULE_TO_INVOKE_LAMBDA', {
-      recipients: ['demo1@faraz.extechsolution.com'], // If no recipients than the action will be called on any incoming mail addresses of verified domains
+      recipients: ['ahmed@awsfaraz.website'], // If no recipients than the action will be called on any incoming mail addresses of verified domains
       actions: [
         new sesActions.Lambda({ // defining an action to call when receive email on given recipients
           function: lambdaForReceivingEmails,
