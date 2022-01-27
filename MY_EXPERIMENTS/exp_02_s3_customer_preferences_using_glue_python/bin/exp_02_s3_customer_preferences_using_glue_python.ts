@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
-import * as cdk from 'aws-cdk-lib';
-import { Exp02WriteS3UsingGluePythonShellJobStack } from '../lib/exp_02_write_s3_using_glue_python_shell_job-stack';
+import * as cdk from '@aws-cdk/core';
+import { Exp02S3CustomerPreferencesUsingGluePythonStack } from '../lib/exp_02_s3_customer_preferences_using_glue_python-stack';
 
 const app = new cdk.App();
-new Exp02WriteS3UsingGluePythonShellJobStack(app, 'Exp02WriteS3UsingGluePythonShellJobStack', {
+new Exp02S3CustomerPreferencesUsingGluePythonStack(app, 'Exp02S3CustomerPreferencesUsingGluePythonStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
