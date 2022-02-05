@@ -96,6 +96,9 @@ export class Exp02S3CustomerPreferencesUsingGluePythonStack extends cdk.Stack {
     // Workflow
     new glue.CfnWorkflow(this, "glue-fifa-workflow", {
       name: "glue-fifa-workflow",
+      defaultRunProperties: {
+        glueJob: glueJob.jobName
+      }
     });
 
     // Create a trigger for load data job.
