@@ -1,14 +1,7 @@
-# Welcome to your CDK TypeScript project
+# My SQS Docs
 
-This is a blank project for TypeScript development with CDK.
+[Read More in Details from here](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SQS.html)
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+### NOTES
 
-## Useful commands
-
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+- When you set FifoQueue, you can't set DelaySeconds per message. You can set this parameter only on a queue level.
