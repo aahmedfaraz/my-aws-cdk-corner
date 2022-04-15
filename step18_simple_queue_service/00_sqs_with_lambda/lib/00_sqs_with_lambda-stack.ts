@@ -15,10 +15,10 @@ export class SqsWithLambdaStack extends Stack {
     const myWelcomeQueue = new sqs.Queue(this, 'my-welcome-queue', {
       queueName: 'my-welcome-queue', // Name of the queue
       encryption: sqs.QueueEncryption.UNENCRYPTED, // Wheather to Encrypt messages or not, default is  unencrypted
-      retentionPeriod: Duration.days(4), // Duration in which SQS will store msgs, 4 days are default
-      fifo: false, // Determines the types of the queue
-      maxMessageSizeBytes: 262144, // Maximum size of messages in Bytes
-      visibilityTimeout: Duration.seconds(30), // Time for which each message waits while being processed before it becomes visible
+      // retentionPeriod: Duration.days(4), // Duration in which SQS will store msgs, 4 days are default
+      // fifo: false, // Determines the types of the queue
+      // maxMessageSizeBytes: 262144, // Maximum size of messages in Bytes
+      // visibilityTimeout: Duration.seconds(30), // Time for which each message waits while being processed before it becomes visible
       // deadLetterQueue: { // Set another Queue to hold messages that failed to process mulitple times
       //   maxReceiveCount: 3,
       //   queue: anyOtherQueue,
@@ -36,7 +36,7 @@ export class SqsWithLambdaStack extends Stack {
       environment: {
         SQS_QUEUE_URL: myWelcomeQueue.queueUrl
       },
-      timeout: Duration.minutes(15),
+      // timeout: Duration.minutes(15),
     });
 
     // =====================================================================
@@ -60,7 +60,7 @@ export class SqsWithLambdaStack extends Stack {
       environment: {
         SQS_QUEUE_URL: myWelcomeQueue.queueUrl
       },
-      timeout: Duration.minutes(15),
+      // timeout: Duration.minutes(15),
     });
 
     // =====================================================================
@@ -68,7 +68,7 @@ export class SqsWithLambdaStack extends Stack {
     // =====================================================================
     myBatchSenderLambda.addToRolePolicy(
       new iam.PolicyStatement({
-        actions: ['sqs.SendMessageBatch'],
+        actions: ['sqs:SendMessage'],
         resources: [myWelcomeQueue.queueArn],
       })
     );
@@ -81,7 +81,7 @@ export class SqsWithLambdaStack extends Stack {
       runtime: lambda.Runtime.NODEJS_12_X,
       code: lambda.Code.fromAsset('lambda'),
       handler: 'consumer.handler',
-      timeout: Duration.minutes(15),
+      // timeout: Duration.minutes(15),
     });
     
     // =====================================================================

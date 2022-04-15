@@ -4,7 +4,7 @@ const sqs = new AWS.SQS({ apiVersion: '2012-11-05' });
 const SQS_QUEUE_URL = process.env.SQS_QUEUE_URL;
 
 exports.handler = async (event : any) => {
-    const allMessages = [
+    let allMessages = [
         {
             Id: '0',
             MessageBody: JSON.stringify({
@@ -23,7 +23,7 @@ exports.handler = async (event : any) => {
     ];
 
     const sqsBatchParams = {
-        Entries: allMessages,
+        Entries: [...allMessages],
         QueueUrl: SQS_QUEUE_URL || '',
     };
 
