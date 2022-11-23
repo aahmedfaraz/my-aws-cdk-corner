@@ -1,0 +1,51 @@
+{
+    "Records": [
+        {
+            "messageId": "2cfe8053-bfff-4c05-b0df-e5f2ac56fbcf",
+            "receiptHandle": "AQEBzKBs1diDDm8KORMJDc3bGEdiZwIKgO45WucqwoMv7H6agqljnU6NCJwn8seTIlQo2W7cHTLDJzc5fivVWL1VDOtmcT2nR1TAFCNeqr26+5uZLjKVRhhIn4lfLdS9+B+BoN28A7r8OkosbKELtKFnBKtxabCc2YxQ2Z4tpebxpHd5Ci9ddCe7eQALsdHLGUpNxVUPAmz06MjFTHC+M3kNreAFFy4bNBnI0IxKb+7QRWzY80zGOi0OgLdPv0msaoUtfyltDjvab+loxBnwisz5pz8Y9bhRaOI6hrZ4bFI39lV2xd1zzneSqvtaubrZ0aBnUlTc+4NW18iwU4OsEfTQwtFeVhOTy5TFTkG5QkHZvcY=",
+            "body": {
+                "version": "0",
+                "id": "52b48b4b-4c0b-597a-0f69-4c0541fe36e6",
+                "detail-type": "Object Created",
+                "source": "aws.s3",
+                "account": "800354324051",
+                "time": "2022-04-19T23: 25: 31Z",
+                "region": "us-east-1",
+                "resources": [
+                    "arn:aws:s3: : :braze-currents-dummy-bucket"
+                ],
+                "detail": {
+                    "version": "0",
+                    "bucket": {
+                        "name": "braze-currents-dummy-bucket"
+                    },
+                    "object": {
+                        "key": "braze/in/dataexport.prod-06.S3.integration.606484d78919ac52c33c8f5b/event_type=users.behaviors.subscriptiongroup.StateChange/date=2021-07-09-22/1070/prod-06/avro_file_01.avro",
+                        "size": 2742,
+                        "etag": "c77c2dd0d2300fd9ba609f7c33682b67",
+                        "version-id": "ElDA_VDQWDe8E6xaHMoa.63CuISNzy_d",
+                        "sequencer": "00625F44EB5F9DE9F8"
+                    },
+                    "request-id": "01EMHDPGD25RBQWD",
+                    "requester": "800354324051",
+                    "source-ip-address": "14.192.129.138",
+                    "reason": "PutObject"
+                }
+            },
+            "attributes": {
+                "ApproximateReceiveCount": "1",
+                "SentTimestamp": "1650410733079",
+                "SequenceNumber": "18869249221377776128",
+                "MessageGroupId": "BrazeCurrentsSubscriptionPreferences",
+                "SenderId": "AIDAJXNJGGKNS7OSV23OI",
+                "MessageDeduplicationId": "f0305b209eac269e8e6d111637af951125eee67c5a584543d57dcaefa7bae9bb",
+                "ApproximateFirstReceiveTimestamp": "1650410733079"
+            },
+            "messageAttributes": {},
+            "md5OfBody": "fe6994ff7d7aecdbb07c56ccefab2837",
+            "eventSource": "aws:sqs",
+            "eventSourceARN": "arn:aws:sqs:us-east-1:120188122854:tb-preferences-api-test-braze-currents-subscription-preference-pending.fifo",
+            "awsRegion": "us-east-1"
+        }
+    ]
+}
