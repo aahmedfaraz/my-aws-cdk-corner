@@ -128,53 +128,34 @@ export class Step19StepFunctionsStack extends Stack {
     const add_student_state_machine = new stepfunctions.StateMachine(this, `${service}-add-student-state-machine`, {
       stateMachineName: `${service}-add-student-state-machine`,
       definition: add_student_definition,
-      stateMachineType: stepfunctions.StateMachineType.EXPRESS,
-      tracingEnabled: true,
+      // stateMachineType: stepfunctions.StateMachineType.EXPRESS,
     });
-
-    // add policy to write logs
-    add_student_state_machine.addToRolePolicy(new iam.PolicyStatement({
-      effect: iam.Effect.ALLOW,
-      actions: [
-        "logs:CreateLogDelivery",
-        "logs:GetLogDelivery",
-        "logs:UpdateLogDelivery",
-        "logs:DeleteLogDelivery",
-        "logs:ListLogDeliveries",
-        "logs:PutLogEvents",
-        "logs:PutResourcePolicy",
-        "logs:DescribeResourcePolicies",
-        "logs:DescribeLogGroups"
-      ],
-      resources: ["*"]
-    }))
-
 
     // REST API
-    const add_student_sf_rest_api = new apigateway.StepFunctionsRestApi(this, `${service}-add-student-sf-rest-api`, {
-      restApiName: `${service}-add-student-sf-rest-api`,
-      stateMachine: add_student_state_machine,
-      deploy: true,
-    });
+    // const add_student_sf_rest_api = new apigateway.StepFunctionsRestApi(this, `${service}-add-student-sf-rest-api`, {
+    //   restApiName: `${service}-add-student-sf-rest-api`,
+    //   stateMachine: add_student_state_machine,
+    //   deploy: true,
+    // });
 
-    // Appsync Datasource
-    const add_student_appsync_datasource = appsyncApi.addHttpDataSource(`${service}-add-student-datasource`, add_student_sf_rest_api.url, {
-      name: `${service}-add-student-datasource`,
-    });
+    // // Appsync Datasource
+    // const add_student_appsync_datasource = appsyncApi.addHttpDataSource(`${service}-add-student-datasource`, add_student_sf_rest_api.url, {
+    //   name: `${service}-add-student-datasource`,
+    // });
 
-    // Resolvers
-    add_student_appsync_datasource.createResolver({
-      typeName: 'Query',
-      fieldName: 'get_student',
-      requestMappingTemplate: appsync.MappingTemplate.fromFile('graphql/request.vtl'),
-      responseMappingTemplate: appsync.MappingTemplate.fromFile('graphql/response.vtl'),
-    });
-    add_student_appsync_datasource.createResolver({
-      typeName: 'Mutation',
-      fieldName: 'add_student',
-      requestMappingTemplate: appsync.MappingTemplate.fromFile('graphql/request.vtl'),
-      responseMappingTemplate: appsync.MappingTemplate.fromFile('graphql/response.vtl'),
-    });
+    // // Resolvers
+    // add_student_appsync_datasource.createResolver({
+    //   typeName: 'Query',
+    //   fieldName: 'get_student',
+    //   requestMappingTemplate: appsync.MappingTemplate.fromFile('graphql/request.vtl'),
+    //   responseMappingTemplate: appsync.MappingTemplate.fromFile('graphql/response.vtl'),
+    // });
+    // add_student_appsync_datasource.createResolver({
+    //   typeName: 'Mutation',
+    //   fieldName: 'add_student',
+    //   requestMappingTemplate: appsync.MappingTemplate.fromFile('graphql/request.vtl'),
+    //   responseMappingTemplate: appsync.MappingTemplate.fromFile('graphql/response.vtl'),
+    // });
 
   }
 }
