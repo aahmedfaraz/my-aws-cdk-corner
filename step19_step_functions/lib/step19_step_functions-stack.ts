@@ -5,6 +5,7 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as stepfunctions from 'aws-cdk-lib/aws-stepfunctions';
 import * as stepfunctions_tasks from 'aws-cdk-lib/aws-stepfunctions-tasks';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
+import * as iam from 'aws-cdk-lib/aws-iam';
 // import * as apigatewayv2 from '@aws-cdk/aws-apigatewayv2';
 // import * as apigatewayv2_integration from '@aws-cdk/aws-apigatewayv2-integrations';
 
@@ -128,8 +129,26 @@ export class Step19StepFunctionsStack extends Stack {
       stateMachineName: `${service}-add-student-state-machine`,
       definition: add_student_definition,
       stateMachineType: stepfunctions.StateMachineType.EXPRESS,
-      tracingEnabled: true
+      tracingEnabled: true,
     });
+
+    // add policy to write logs
+    add_student_state_machine.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: [
+        "logs:CreateLogDelivery",
+        "logs:GetLogDelivery",
+        "logs:UpdateLogDelivery",
+        "logs:DeleteLogDelivery",
+        "logs:ListLogDeliveries",
+        "logs:PutLogEvents",
+        "logs:PutResourcePolicy",
+        "logs:DescribeResourcePolicies",
+        "logs:DescribeLogGroups"
+      ],
+      resources: ["*"]
+    }))
+
 
     // REST API
     const add_student_sf_rest_api = new apigateway.StepFunctionsRestApi(this, `${service}-add-student-sf-rest-api`, {
