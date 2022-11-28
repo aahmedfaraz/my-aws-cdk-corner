@@ -1,0 +1,36 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    # get_student(id: String!): Response!
+}
+
+type Mutation {
+    add_student(student: StudentInput!): Response!
+}
+
+type Response {
+    student: Student
+    success: Message
+    error: Message
+}
+
+type Message {
+    status_code: Int!
+    message: String!
+}
+
+type StudentInput {
+    name: String!
+    age: Int!
+    dept: String!
+}
+
+type Student {
+    id: Int!
+    name: String!
+    age: Int!
+    dept: String!
+}
