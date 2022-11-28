@@ -1,8 +1,9 @@
-export const handler = async (event: any, context: any, callback: any) => {
+export const handler = async (event: any) => {
     console.log("ERROR =============");
     console.log("EVENT >> ", event);
-    console.log("CONTEXT >> ", context);
-    console.log("CALLBACK >> ", callback);
     return {
+        error: {
+            message: 'This is ERROR message from ERROR lambda'
+        }
     }
 };

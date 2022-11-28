@@ -128,6 +128,7 @@ export class Step19StepFunctionsStack extends Stack {
       stateMachineName: `${service}-add-student-state-machine`,
       definition: add_student_definition,
       stateMachineType: stepfunctions.StateMachineType.EXPRESS,
+      tracingEnabled: true
     });
 
     // REST API

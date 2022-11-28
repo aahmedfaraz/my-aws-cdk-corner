@@ -1,8 +1,15 @@
-export const handler = async (event: any, context: any, callback: any) => {
+export const handler = async (event: any) => {
     console.log("STEP 01 =============");
     console.log("EVENT >> ", event);
-    console.log("CONTEXT >> ", context);
-    console.log("CALLBACK >> ", callback);
-    return {
+    if (event.step === 1) {
+        return {
+            error: {
+                message: 'This is ERROR message from step - 01'
+            }
+        }
+    } else {
+        return {
+            step: event.step
+        }
     }
 };
