@@ -45,29 +45,35 @@ export class Step19StepFunctionsStack extends Stack {
     //================================================================================
 
     //	Lambda: All Lambdas using for add_student endpoint
-    const step01_validate_student = new lambda.Function(this, `${service}-step01-validate-student`, {
-      functionName: `${service}-step01-validate-student`,
+    const step01_validate_student = new lambda.Function(this, `${service}-step01-validate-student-lambda`, {
+      functionName: `${service}-step01-validate-student-lambda`,
       runtime: lambda.Runtime.NODEJS_16_X,
       code: lambda.Code.fromAsset('lambda/add_student'),
       handler: 'step01_validate_student.handler',
     });
-    const step02_add_student = new lambda.Function(this, `${service}-step02-add-student`, {
-      functionName: `${service}-step02-add-student`,
+    const step02_add_student = new lambda.Function(this, `${service}-step02-add-student-lambda`, {
+      functionName: `${service}-step02-add-student-lambda`,
       runtime: lambda.Runtime.NODEJS_16_X,
       code: lambda.Code.fromAsset('lambda/add_student'),
       handler: 'step02_add_student.handler',
     });
-    const step03_send_email = new lambda.Function(this, `${service}-step03-send-email`, {
-      functionName: `${service}-step03-send-email`,
+    const step03_send_email = new lambda.Function(this, `${service}-step03-send-email-lambda`, {
+      functionName: `${service}-step03-send-email-lambda`,
       runtime: lambda.Runtime.NODEJS_16_X,
       code: lambda.Code.fromAsset('lambda/add_student'),
       handler: 'step03_send_email.handler',
     });
-    const step04_create_token = new lambda.Function(this, `${service}-step04-create-token`, {
-      functionName: `${service}-step04-create-token`,
+    const step04_create_token = new lambda.Function(this, `${service}-step04-create-token-lambda`, {
+      functionName: `${service}-step04-create-token-lambda`,
       runtime: lambda.Runtime.NODEJS_16_X,
       code: lambda.Code.fromAsset('lambda/add_student'),
       handler: 'step04_create_token.handler',
+    });
+    const error = new lambda.Function(this, `${service}-error-lambda`, {
+      functionName: `${service}-error-lambda`,
+      runtime: lambda.Runtime.NODEJS_16_X,
+      code: lambda.Code.fromAsset('lambda/add_student'),
+      handler: 'error.handler',
     });
 
     //	Step Function: All Lambdas into Step Functions
@@ -83,13 +89,39 @@ export class Step19StepFunctionsStack extends Stack {
     const step04_create_token_sf = new stepfunctions_tasks.LambdaInvoke(this, `${service}-step04-create-token`, {
       lambdaFunction: step04_create_token,
     });
+    const error_sf = new stepfunctions_tasks.LambdaInvoke(this, `${service}-error`, {
+      lambdaFunction: error,
+    });
 
-    // Definition
+    // Choices
+    // Check - 1
+    const check_validation_choice = new stepfunctions.Choice(this, `${service}-check-validation-choice`);
+    // Check - 2
+    const check_db_status_choice = new stepfunctions.Choice(this, `${service}-check-db-status-choice`);
+    // Check - 3
+    const check_email_status_choice = new stepfunctions.Choice(this, `${service}-check-email-status-choice`);
+
+    // Definition / Chain
     const add_student_definition =
-      step01_validate_student_sf
-        .next(step02_add_student_sf)
-        .next(step03_send_email_sf)
-        .next(step04_create_token_sf)
+      step01_validate_student_sf // step - 01
+        .next(check_validation_choice
+          .when(stepfunctions.Condition.isPresent("$.Payload.error"), error_sf) // error
+          .when(stepfunctions.Condition.isNotPresent("$.Payload.error"),
+            step02_add_student_sf // step - 02
+              .next(check_db_status_choice
+                .when(stepfunctions.Condition.isPresent("$.Payload.error"), error_sf) // error
+                .when(stepfunctions.Condition.isNotPresent("$.Payload.error"),
+                  step03_send_email_sf // step - 03
+                    .next(check_email_status_choice
+                      .when(stepfunctions.Condition.isPresent("$.Payload.error"), error_sf) // error
+                      .when(stepfunctions.Condition.isNotPresent("$.Payload.error"),
+                        step04_create_token_sf // step - 04
+                      )
+                    )
+                )
+              )
+          )
+        )
 
     // State machine
     const add_student_state_machine = new stepfunctions.StateMachine(this, `${service}-add-student-state-machine`, {
@@ -112,8 +144,16 @@ export class Step19StepFunctionsStack extends Stack {
 
     // Resolvers
     add_student_appsync_datasource.createResolver({
-      typeName: 'mutation',
-      fieldName: 'add_student'
+      typeName: 'Query',
+      fieldName: 'get_student',
+      requestMappingTemplate: appsync.MappingTemplate.fromFile('graphql/request.vtl'),
+      responseMappingTemplate: appsync.MappingTemplate.fromFile('graphql/response.vtl'),
+    });
+    add_student_appsync_datasource.createResolver({
+      typeName: 'Mutation',
+      fieldName: 'add_student',
+      requestMappingTemplate: appsync.MappingTemplate.fromFile('graphql/request.vtl'),
+      responseMappingTemplate: appsync.MappingTemplate.fromFile('graphql/response.vtl'),
     });
 
   }
