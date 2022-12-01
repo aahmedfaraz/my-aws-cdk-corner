@@ -1,13 +1,10 @@
-import { Duration, Expiration, Stack, StackProps } from 'aws-cdk-lib';
+import { CfnOutput, Duration, Expiration, Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as appsync from "@aws-cdk/aws-appsync-alpha";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as stepfunctions from 'aws-cdk-lib/aws-stepfunctions';
 import * as stepfunctions_tasks from 'aws-cdk-lib/aws-stepfunctions-tasks';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
-import * as iam from 'aws-cdk-lib/aws-iam';
-// import * as apigatewayv2 from '@aws-cdk/aws-apigatewayv2';
-// import * as apigatewayv2_integration from '@aws-cdk/aws-apigatewayv2-integrations';
 
 /**
  * ---------------------------------------------------------------------------------------------
@@ -128,34 +125,46 @@ export class Step19StepFunctionsStack extends Stack {
     const add_student_state_machine = new stepfunctions.StateMachine(this, `${service}-add-student-state-machine`, {
       stateMachineName: `${service}-add-student-state-machine`,
       definition: add_student_definition,
-      // stateMachineType: stepfunctions.StateMachineType.EXPRESS,
+      stateMachineType: stepfunctions.StateMachineType.EXPRESS,
     });
 
     // REST API
-    // const add_student_sf_rest_api = new apigateway.StepFunctionsRestApi(this, `${service}-add-student-sf-rest-api`, {
-    //   restApiName: `${service}-add-student-sf-rest-api`,
-    //   stateMachine: add_student_state_machine,
-    //   deploy: true,
-    // });
+    const add_student_sf_rest_api = new apigateway.StepFunctionsRestApi(this, `${service}-add-student-sf-rest-api`, {
+      restApiName: `${service}-add-student-sf-rest-api`,
+      stateMachine: add_student_state_machine,
+    });
 
-    // // Appsync Datasource
-    // const add_student_appsync_datasource = appsyncApi.addHttpDataSource(`${service}-add-student-datasource`, add_student_sf_rest_api.url, {
-    //   name: `${service}-add-student-datasource`,
-    // });
+    const integration = apigateway.StepFunctionsIntegration.startExecution(add_student_state_machine)
 
-    // // Resolvers
-    // add_student_appsync_datasource.createResolver({
-    //   typeName: 'Query',
-    //   fieldName: 'get_student',
-    //   requestMappingTemplate: appsync.MappingTemplate.fromFile('graphql/request.vtl'),
-    //   responseMappingTemplate: appsync.MappingTemplate.fromFile('graphql/response.vtl'),
-    // });
-    // add_student_appsync_datasource.createResolver({
-    //   typeName: 'Mutation',
-    //   fieldName: 'add_student',
-    //   requestMappingTemplate: appsync.MappingTemplate.fromFile('graphql/request.vtl'),
-    //   responseMappingTemplate: appsync.MappingTemplate.fromFile('graphql/response.vtl'),
-    // });
+    add_student_sf_rest_api.root.addMethod('POST', integration);
+
+    // Appsync Datasource
+    const add_student_appsync_datasource = appsyncApi.addHttpDataSource(`${service}-add-student-datasource`, `${add_student_sf_rest_api.url}`, {
+      name: `${service}-add-student-datasource`,
+    });
+
+    // Resolvers
+    add_student_appsync_datasource.createResolver({
+      typeName: 'Query',
+      fieldName: 'get_success',
+      requestMappingTemplate: appsync.MappingTemplate.fromFile('graphql/request.vtl'),
+      responseMappingTemplate: appsync.MappingTemplate.fromFile('graphql/response.vtl'),
+    });
+    add_student_appsync_datasource.createResolver({
+      typeName: 'Mutation',
+      fieldName: 'get_error',
+      requestMappingTemplate: appsync.MappingTemplate.fromFile('graphql/request.vtl'),
+      responseMappingTemplate: appsync.MappingTemplate.fromFile('graphql/response.vtl'),
+    });
+
+    new CfnOutput(this, `rest-api-url`, {
+      exportName: `rest-api-url`,
+      value: add_student_sf_rest_api.url
+    })
+    new CfnOutput(this, `rest-api-url-for-path`, {
+      exportName: `rest-api-url-for-path`,
+      value: add_student_sf_rest_api.urlForPath()
+    })
 
   }
 }

@@ -4,13 +4,13 @@ export const handler = async (event: any) => {
     if (event.Payload.step === 4) {
         return {
             error: {
-                message: 'This is ERROR message from step - 04'
+                message: event.Payload.message + ' > 4 > ERROR'
             }
         }
     } else {
         return {
             success: {
-                message: 'Final Result: This is SUCCESS message from step - 04'
+                message: event.Payload.message + ' > 4 > SUCCESS'
             }
         }
     }

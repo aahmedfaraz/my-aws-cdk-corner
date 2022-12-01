@@ -4,12 +4,13 @@ export const handler = async (event: any) => {
     if (event.Payload.step === 3) {
         return {
             error: {
-                message: 'This is ERROR message from step - 03'
+                message: event.Payload.message + ' > 3'
             }
         }
     } else {
         return {
-            step: event.Payload.step
+            step: event.Payload.step,
+            message: event.Payload.message + ' > 3'
         }
     }
 };

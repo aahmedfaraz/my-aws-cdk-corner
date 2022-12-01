@@ -9,7 +9,9 @@
     },
     "body": {
       "stateMachineArn": "arn:aws:states:us-east-1:800354324051:stateMachine:ahmed-stack-add-student-state-machine",
-      "input": "{ \"id\": \"$context.arguments.id\", \"student\": $context.arguments.student }"
+      "input": {
+        "step": $ctx.args.step
+      }
     }
   }
 }

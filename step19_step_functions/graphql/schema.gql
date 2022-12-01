@@ -4,33 +4,18 @@ schema {
 }
 
 type Query {
-    get_student(id: String!): Response!
+    get_success: Response!
 }
 
 type Mutation {
-    add_student(student: StudentInput!): Response!
-}
-
-input StudentInput {
-    name: String!
-    age: Int!
-    dept: String!
+    get_error(step: Int!): Response!
 }
 
 type Response {
-    student: Student
     success: Message
     error: Message
 }
 
-type Student {
-    id: Int!
-    name: String!
-    age: Int!
-    dept: String!
-}
-
 type Message {
-    status_code: Int!
     message: String!
 }

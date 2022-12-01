@@ -3,7 +3,7 @@ export const handler = async (event: any) => {
     console.log("EVENT >> ", event);
     return {
         error: {
-            message: 'This is ERROR message from ERROR lambda'
+            message: event.Payload.error.message + ' > ERROR'
         }
     }
 };

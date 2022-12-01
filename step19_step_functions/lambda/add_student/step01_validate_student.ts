@@ -1,15 +1,17 @@
-export const handler = async (event: any) => {
+export const handler = async (event: any, context: any) => {
     console.log("STEP 01 =============");
     console.log("EVENT >> ", event);
-    if (event.step === 1) {
+    console.log("CONTEXT >> ", context);
+    if (event.body.step === 1) {
         return {
             error: {
-                message: 'This is ERROR message from step - 01'
+                message: 'PATH FOLLOWED : 1'
             }
         }
     } else {
         return {
-            step: event.step
+            step: event.body.step,
+            message: 'PATH FOLLOWED : 1'
         }
     }
 };
