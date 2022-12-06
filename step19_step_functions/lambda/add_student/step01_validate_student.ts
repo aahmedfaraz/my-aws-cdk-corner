@@ -2,7 +2,9 @@ export const handler = async (event: any, context: any) => {
     console.log("STEP 01 =============");
     console.log("EVENT >> ", event);
     console.log("CONTEXT >> ", context);
-    if (event.body.step === 1) {
+
+    const step = JSON.parse(event.step);
+    if (step === 1) {
         return {
             error: {
                 message: 'PATH FOLLOWED : 1'
@@ -10,7 +12,7 @@ export const handler = async (event: any, context: any) => {
         }
     } else {
         return {
-            step: event.body.step,
+            step,
             message: 'PATH FOLLOWED : 1'
         }
     }

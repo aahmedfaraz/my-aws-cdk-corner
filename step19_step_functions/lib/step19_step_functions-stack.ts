@@ -4,7 +4,8 @@ import * as appsync from "@aws-cdk/aws-appsync-alpha";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as stepfunctions from 'aws-cdk-lib/aws-stepfunctions';
 import * as stepfunctions_tasks from 'aws-cdk-lib/aws-stepfunctions-tasks';
-import * as apigateway from 'aws-cdk-lib/aws-apigateway';
+import * as logs from 'aws-cdk-lib/aws-logs';
+import { Effect, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 
 /**
  * ---------------------------------------------------------------------------------------------
@@ -86,9 +87,11 @@ export class Step19StepFunctionsStack extends Stack {
     });
     const step04_create_token_sf = new stepfunctions_tasks.LambdaInvoke(this, `${service}-step04-create-token`, {
       lambdaFunction: step04_create_token,
+      outputPath: '$.Payload'
     });
     const error_sf = new stepfunctions_tasks.LambdaInvoke(this, `${service}-error`, {
       lambdaFunction: error,
+      outputPath: '$.Payload'
     });
 
     // Choices
@@ -100,7 +103,7 @@ export class Step19StepFunctionsStack extends Stack {
     const check_email_status_choice = new stepfunctions.Choice(this, `${service}-check-email-status-choice`);
 
     // Definition / Chain
-    const add_student_definition =
+    const definition =
       step01_validate_student_sf // step - 01
         .next(check_validation_choice
           .when(stepfunctions.Condition.isPresent("$.Payload.error"), error_sf) // error
@@ -121,50 +124,135 @@ export class Step19StepFunctionsStack extends Stack {
           )
         )
 
+    // Log group for State machine
+    const logGroup = new logs.LogGroup(this, `${service}-sm-log-group`);
+
     // State machine
-    const add_student_state_machine = new stepfunctions.StateMachine(this, `${service}-add-student-state-machine`, {
-      stateMachineName: `${service}-add-student-state-machine`,
-      definition: add_student_definition,
+    const stateMachine = new stepfunctions.StateMachine(this, `${service}-state-machine`, {
+      stateMachineName: `${service}-state-machine`,
+      definition,
       stateMachineType: stepfunctions.StateMachineType.EXPRESS,
+      logs: {
+        destination: logGroup,
+        level: stepfunctions.LogLevel.ALL,
+      }
     });
 
-    // REST API
-    const add_student_sf_rest_api = new apigateway.StepFunctionsRestApi(this, `${service}-add-student-sf-rest-api`, {
-      restApiName: `${service}-add-student-sf-rest-api`,
-      stateMachine: add_student_state_machine,
+    // IAM Role/Policy for Appsync
+    const appsyncApiStepFunctionRole = new Role(this, `${service}-sync-state-machine-role`, {
+      assumedBy: new ServicePrincipal('appsync.amazonaws.com')
     });
+    appsyncApiStepFunctionRole.addToPolicy(new PolicyStatement({
+      effect: Effect.ALLOW,
+      actions: ["states:StartSyncExecution"],
+      resources: [stateMachine.stateMachineArn]
+    }))
 
-    const integration = apigateway.StepFunctionsIntegration.startExecution(add_student_state_machine)
+    const endpoint = `https://sync-states.${this.region}.amazonaws.com/`;
+    const httpDataSource = appsyncApi.addHttpDataSource(`${service}-appsync-http-datasource-1`, endpoint, {
+      name: `${service}-appsync-http-datasource-1`,
+      authorizationConfig: {
+        signingRegion: this.region,
+        signingServiceName: "states"
+      }
+    })
 
-    add_student_sf_rest_api.root.addMethod('POST', integration);
+    stateMachine.grant(httpDataSource.grantPrincipal, "states:StartSyncExecution");
 
-    // Appsync Datasource
-    const add_student_appsync_datasource = appsyncApi.addHttpDataSource(`${service}-add-student-datasource`, `${add_student_sf_rest_api.url}`, {
-      name: `${service}-add-student-datasource`,
+    // Resolvers
+    httpDataSource.createResolver({
+      typeName: 'Mutation',
+      fieldName: 'addStudent',
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        `
+        {
+          "version": "2018-05-29",
+          "method": "POST",
+          "resourcePath": "/",
+          "params": {
+            "headers": {
+              "content-type": "application/x-amz-json-1.0",
+              "x-amz-target":"AWSStepFunctions.StartSyncExecution"
+            },
+            "body": {
+              "stateMachineArn": "${stateMachine.stateMachineArn}",
+              "input": "{ \\\"step\\\": \\\"$context.args.step\\\"}"
+            }
+          }
+        }
+        `
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        `
+        ## Raise a GraphQL field error in case of a datasource invocation error
+        #if($ctx.error)
+          $util.error($ctx.error.message, $ctx.error.type)
+        #end
+        ## if the response status code is not 200, then return an error. Else return the body **
+        #if($ctx.result.statusCode == 200)
+          ## If response is 200, return the body.
+          $ctx.result.body
+        #else
+          ## If response is not 200, append the response to error block.
+          $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+        #end
+        `
+      ),
     });
 
     // Resolvers
-    add_student_appsync_datasource.createResolver({
-      typeName: 'Query',
-      fieldName: 'get_success',
-      requestMappingTemplate: appsync.MappingTemplate.fromFile('graphql/request.vtl'),
-      responseMappingTemplate: appsync.MappingTemplate.fromFile('graphql/response.vtl'),
-    });
-    add_student_appsync_datasource.createResolver({
+    httpDataSource.createResolver({
       typeName: 'Mutation',
-      fieldName: 'get_error',
-      requestMappingTemplate: appsync.MappingTemplate.fromFile('graphql/request.vtl'),
-      responseMappingTemplate: appsync.MappingTemplate.fromFile('graphql/response.vtl'),
+      fieldName: 'getStudent',
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        `
+        {
+          "version": "2018-05-29",
+          "method": "POST",
+          "resourcePath": "/",
+          "params": {
+            "headers": {
+              "content-type": "application/x-amz-json-1.0",
+              "x-amz-target":"AWSStepFunctions.StartSyncExecution"
+            },
+            "body": {
+              "stateMachineArn": "${stateMachine.stateMachineArn}",
+              "input": "{ \\\"step\\\": \\\"$context.args.step\\\"}"
+            }
+          }
+        }
+        `
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        `
+        ## Raise a GraphQL field error in case of a datasource invocation error
+        #if($ctx.error)
+          $util.error($ctx.error.message, $ctx.error.type)
+        #end
+        ## if the response status code is not 200, then return an error. Else return the body **
+        #if($ctx.result.statusCode == 200)
+          ## If response is 200, return the body.
+          $ctx.result.body
+        #else
+          ## If response is not 200, append the response to error block.
+          $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+        #end
+        `
+      ),
     });
 
-    new CfnOutput(this, `rest-api-url`, {
-      exportName: `rest-api-url`,
-      value: add_student_sf_rest_api.url
-    })
-    new CfnOutput(this, `rest-api-url-for-path`, {
-      exportName: `rest-api-url-for-path`,
-      value: add_student_sf_rest_api.urlForPath()
-    })
+    new CfnOutput(this, 'graphqlUrl', {
+      value: appsyncApi.graphqlUrl
+    });
+    new CfnOutput(this, 'apiKey', {
+      value: appsyncApi.apiKey!
+    });
+    new CfnOutput(this, 'apiId', {
+      value: appsyncApi.apiId
+    });
+    new CfnOutput(this, 'stateMachine', {
+      value: stateMachine.stateMachineArn
+    });
 
   }
 }

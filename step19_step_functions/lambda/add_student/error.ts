@@ -5,5 +5,5 @@ export const handler = async (event: any) => {
         error: {
             message: event.Payload.error.message + ' > ERROR'
         }
-    }
-};
+    };
+}
