@@ -3,7 +3,7 @@ export const handler = async (event: any, context: any) => {
     console.log("EVENT >> ", event);
     console.log("CONTEXT >> ", context);
 
-    const step = JSON.parse(event.step);
+    const step = event.step;
     if (step === 1) {
         return {
             error: {

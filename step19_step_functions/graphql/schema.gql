@@ -1,8 +1,8 @@
 type Execution {
-	# input: String
 	output: String
-	# name: String
 	status: String
+	# input: String
+	# name: String
 	# executionArn: String
 	# startDate: String
 	# stopDate: String
@@ -19,12 +19,15 @@ type Mutation {
 # 		@aws_subscribe(mutations: ["addStudent"])
 # }
 
-input StartExecutionInput {
-	input: String!
-}
+# input StartExecutionInput {
+# 	input: String!
+# }
 
-type Query{
-	listExecutions: [Execution] @deprecated(reason: "Express workflows do not support ListExecutions or DescribeExecution")
+type Query {
+	listExecutions: [Execution]
+		@deprecated(
+			reason: "Express workflows do not support ListExecutions or DescribeExecution"
+		)
 }
 
 schema {

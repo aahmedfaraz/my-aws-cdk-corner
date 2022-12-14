@@ -138,16 +138,6 @@ export class Step19StepFunctionsStack extends Stack {
       }
     });
 
-    // IAM Role/Policy for Appsync
-    const appsyncApiStepFunctionRole = new Role(this, `${service}-sync-state-machine-role`, {
-      assumedBy: new ServicePrincipal('appsync.amazonaws.com')
-    });
-    appsyncApiStepFunctionRole.addToPolicy(new PolicyStatement({
-      effect: Effect.ALLOW,
-      actions: ["states:StartSyncExecution"],
-      resources: [stateMachine.stateMachineArn]
-    }))
-
     const endpoint = `https://sync-states.${this.region}.amazonaws.com/`;
     const httpDataSource = appsyncApi.addHttpDataSource(`${service}-appsync-http-datasource-1`, endpoint, {
       name: `${service}-appsync-http-datasource-1`,
@@ -217,7 +207,7 @@ export class Step19StepFunctionsStack extends Stack {
             },
             "body": {
               "stateMachineArn": "${stateMachine.stateMachineArn}",
-              "input": "{ \\\"step\\\": \\\"$context.args.step\\\"}"
+              "input": "{ \\\"step\\\": $context.args.step}"
             }
           }
         }
